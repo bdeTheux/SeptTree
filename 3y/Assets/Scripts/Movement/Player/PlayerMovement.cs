@@ -9,6 +9,7 @@ public class PlayerMovement : MovementController
     [SerializeField] private float jumpForce;
     [SerializeField] private BoxGroundCheck groundCheck;
     private bool _canJump;
+    private bool _isFalling;
 
     private Vector2 _direction;
 
@@ -18,14 +19,23 @@ public class PlayerMovement : MovementController
     {
         var vel = rb.velocity;
         vel.x = _direction.x * speed;
+        //Use BoxGroundCheck to know if the player is touching the ground.
         _canJump = groundCheck.IsGrounded();
-        if (_canJump && _jumpRequested)
+        if (_jumpRequested && _canJump)
         {
-            vel.y = jumpForce;
             _jumpRequested = false;
             _canJump = false;
+            vel.y = jumpForce;
+            
         }
-        
+
+        if (_isFalling && rb.velocity.y > 0)
+        {
+            vel.y *= .3f;
+            //_isFalling = false;
+        }
+
+        _isFalling = false;
         rb.velocity = vel;
         
     }
@@ -37,11 +47,15 @@ public class PlayerMovement : MovementController
 
     public override void Jump()
     {
-        Debug.Log(_canJump);
         if (_canJump)
         {
             _jumpRequested = true;
         }
+    }
+
+    public override void Fall()
+    {
+        _isFalling = true;
     }
 
     public override void Attack()

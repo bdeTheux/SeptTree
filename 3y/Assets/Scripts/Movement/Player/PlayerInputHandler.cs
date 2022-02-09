@@ -6,22 +6,21 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private MovementController controller;
-    private Rigidbody2D rb;
 
     // Update is called once per frame
     private void Update()
     {
         var dir = new Vector2(Input.GetAxis("Horizontal"), 0);
         controller.Move(dir);
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButton("Jump"))
         {
             controller.Jump();
-            Debug.Log("hello");
+        }
+        else
+        {
+            controller.Fall();
         }
 
-       /* if (Input.GetButtonUp("Jump") && rb.velocity.y >0)
-        {
-            
-        }*/
+        
     }
 }
