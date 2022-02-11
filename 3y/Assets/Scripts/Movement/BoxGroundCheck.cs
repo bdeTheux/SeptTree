@@ -8,7 +8,7 @@ public class BoxGroundCheck : MonoBehaviour
     //private BoxCollider2D boxCollider;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    private float groundCheckRadius = 0.4f;
+    private float groundCheckRadius = 0.3f;
 
     public bool IsGrounded()
     {   

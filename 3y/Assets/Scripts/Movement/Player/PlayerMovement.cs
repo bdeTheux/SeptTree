@@ -12,6 +12,7 @@ public class PlayerMovement : MovementController
     private bool _isFalling;
 
     private Vector2 _direction;
+    private bool facingRight = true;
 
     private bool _jumpRequested;
     // Update is called once per frame
@@ -33,6 +34,14 @@ public class PlayerMovement : MovementController
         {
             vel.y *= .3f;
             //_isFalling = false;
+        }
+                
+        if (vel.x > 0 && !facingRight)
+        {
+            Flip();
+        }else if (vel.x < 0 && facingRight)
+        {
+            Flip();
         }
 
         _isFalling = false;
@@ -56,6 +65,14 @@ public class PlayerMovement : MovementController
     public override void Fall()
     {
         _isFalling = true;
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
     public override void Attack()
