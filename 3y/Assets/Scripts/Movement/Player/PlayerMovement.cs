@@ -10,16 +10,19 @@ public class PlayerMovement : MovementController
     [SerializeField] private BoxGroundCheck groundCheck;
     private bool _canJump;
     private bool _isFalling;
-
+    private bool _jumpRequested;
+    
     private Vector2 _direction;
     private bool facingRight = true;
 
-    private bool _jumpRequested;
+    public Animator animator;
     // Update is called once per frame
     void FixedUpdate()
     {
         var vel = rb.velocity;
         vel.x = _direction.x * speed;
+        //Animation
+        animator.SetFloat("Speed", Mathf.Abs(vel.x));
         //Use BoxGroundCheck to know if the player is touching the ground.
         _canJump = groundCheck.IsGrounded();
         if (_jumpRequested && _canJump)
@@ -27,7 +30,12 @@ public class PlayerMovement : MovementController
             _jumpRequested = false;
             _canJump = false;
             vel.y = jumpForce;
-            
+            animator.SetBool("IsJumping", true);
+        }
+
+        if (_canJump)
+        {
+            animator.SetBool("IsJumping", false);
         }
 
         if (_isFalling && rb.velocity.y > 0)
@@ -73,6 +81,11 @@ public class PlayerMovement : MovementController
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    public override void Sit()
+    {
+        
     }
 
     public override void Attack()

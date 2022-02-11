@@ -17,5 +17,7 @@ public abstract class MovementController : MonoBehaviour
     public abstract void Jump();
 
     public abstract void Fall();
+
+    public abstract void Sit();
     public abstract void Attack();
 }
