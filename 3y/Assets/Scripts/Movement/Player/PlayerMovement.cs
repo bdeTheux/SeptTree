@@ -85,7 +85,7 @@ public class PlayerMovement : MovementController
 
     public override void Sit()
     {
-        
+        animator.SetBool("IsSitting", !animator.GetBool("IsSitting"));
     }
 
     public override void Attack()

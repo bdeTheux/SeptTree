@@ -21,7 +21,7 @@ public class PlayerInputHandler : MonoBehaviour
             controller.Fall();
         }
 
-        if (Input.GetButtonDown("C"))
+        if (Input.GetButtonDown("Sit"))
         {
             controller.Sit();
         }
