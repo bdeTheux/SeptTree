@@ -17,6 +17,7 @@ public class Health : MonoBehaviour, IDamageable
     //Take damage
     public void TakeDamage(int damage)
     {
+        Debug.Log("Aie");
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -26,6 +27,7 @@ public class Health : MonoBehaviour, IDamageable
     //Die
     private void Die()
     {
+        Debug.Log("Mort");
         //destroy with time
         Destroy(gameObject,0.6f);
     }

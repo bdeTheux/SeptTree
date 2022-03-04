@@ -6,7 +6,7 @@ using UnityEngine;
 public class Damage : MonoBehaviour
 {
     [SerializeField] private int damage;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         var body = other.attachedRigidbody;
         if (body)
@@ -19,7 +19,7 @@ public class Damage : MonoBehaviour
         }
     }
     
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         var body = other.rigidbody;
         if (body)
@@ -35,6 +35,7 @@ public class Damage : MonoBehaviour
     private void DealDamage(GameObject obj)
     {
         var life = obj.GetComponent<IDamageable>();
-        life.TakeDamage(damage);
+        life?.TakeDamage(damage);
+        
     }
 }
