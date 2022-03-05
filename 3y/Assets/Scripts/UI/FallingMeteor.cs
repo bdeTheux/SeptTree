@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 /*
  * We will make randomly fall meteor to random spot at a random time(or each 5s)
@@ -10,26 +11,55 @@ public class FallingMeteor : MonoBehaviour
 {
     [SerializeField] private Transform[] fallPoints;
     [SerializeField] private Transform spawnPoint;
+    
     private Transform target;
     private Rigidbody2D _rb;
+    private int nb = 0;
+    [SerializeField] private Object meteorObject;
     protected Rigidbody2D rb => _rb;
-    protected void Awake()
+
+    protected void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        if (target) return;
+        int i = 0;
+        foreach (var spawn in GameObject.FindGameObjectsWithTag("Target"))
+        {
+            fallPoints[i] = spawn.transform;
+            i++;
+        }
+        spawnPoint = GameObject.FindWithTag("Respawn").transform;
         int indexChosen = Random.Range(0, fallPoints.Length);
         target = fallPoints[indexChosen];
     }
 
-    private void FixedUpdate()
+    protected void Awake()
     {
         
+        
+        _rb = GetComponent<Rigidbody2D>();
+        
+    }
+
+    private void FixedUpdate()
+    {
         spawnMeteor();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Instantiate(rb, spawnPoint);
-        Destroy(rb);
+        if (nb > 5)
+        {
+            
+        }
+        else
+        {
+            Debug.Log(spawnPoint.position);
+            Instantiate(meteorObject, spawnPoint);
+            Destroy(gameObject);
+            
+            nb++;
+        }
+        
 
     }
 
@@ -37,11 +67,8 @@ public class FallingMeteor : MonoBehaviour
     private void spawnMeteor()
     {
         
-        //when rb.transform == fallpoint instanciate / destroy
-        Vector2 dir = target.position - transform.position;
+        //Vector2 dir = target.position - transform.position;
         Debug.Log(target);
-        //rb.AddForce(dir.normalized * Time.deltaTime, ForceMode2D.Force);
-        //transform.Translate(dir,Space.Self);
         rb.velocity = target.position - transform.position;
         
     }
