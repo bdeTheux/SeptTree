@@ -14,19 +14,22 @@ public class FallingMeteor : MonoBehaviour
     
     private Transform target;
     private Rigidbody2D _rb;
-    private int nb = 0;
     [SerializeField] private Object meteorObject;
     protected Rigidbody2D rb => _rb;
 
+    
     protected void Start()
     {
+        
         if (target) return;
+        
         int i = 0;
         foreach (var spawn in GameObject.FindGameObjectsWithTag("Target"))
         {
             fallPoints[i] = spawn.transform;
             i++;
         }
+
         spawnPoint = GameObject.FindWithTag("Respawn").transform;
         int indexChosen = Random.Range(0, fallPoints.Length);
         target = fallPoints[indexChosen];
@@ -34,8 +37,6 @@ public class FallingMeteor : MonoBehaviour
 
     protected void Awake()
     {
-        
-        
         _rb = GetComponent<Rigidbody2D>();
         
     }
@@ -47,20 +48,11 @@ public class FallingMeteor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (nb > 5)
-        {
-            
-        }
-        else
-        {
-            Debug.Log(spawnPoint.position);
-            Instantiate(meteorObject, spawnPoint);
-            Destroy(gameObject);
-            
-            nb++;
-        }
+        Debug.Log(spawnPoint.position);
+        Instantiate(meteorObject, spawnPoint);
+        Destroy(gameObject);
+         
         
-
     }
 
     //Randomly chose a fallPoint

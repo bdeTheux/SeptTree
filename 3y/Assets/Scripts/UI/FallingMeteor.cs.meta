@@ -3,7 +3,9 @@ guid: 411ab61afccc7bb4eb6f595281d9c485
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spawnPoint: {instanceID: 0}
+  - meteorObject: {fileID: 3325182603871283068, guid: 58fb3d4f203237243b8d6a1d92367c97, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
