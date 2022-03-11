@@ -10,6 +10,7 @@ public class SpawnMeteor : MonoBehaviour
     [SerializeField] private Meteor objPrefab;
     private ObjectPool<Meteor> _pool;
     [SerializeField] private bool usePool;
+    private int maxSize = 8;
     private void Start()
     {
         //create, onGet, onRelease, onDestroy
@@ -24,14 +25,28 @@ public class SpawnMeteor : MonoBehaviour
             {
                 obj.gameObject.SetActive(false);
             },
-            Kill,false,2,4);
-        InvokeRepeating(nameof(Spawn),0.5f, 0.6f);
+            Kill,false,2,maxSize);
+        InvokeRepeating(nameof(Spawn),0.5f, 3f);
     }
 
     private void Spawn()
     {
-        var obj = usePool ? _pool.Get() : Instantiate(objPrefab);
-        obj.transform.position = (Vector2)transform.position + Random.insideUnitCircle * 8;
+        if (_pool.CountAll >= maxSize)
+        {
+            if (_pool.CountInactive != 0)
+            {
+                var obj = _pool.Get();
+                obj.transform.position = (Vector2)transform.position + Random.insideUnitCircle * 8;
+                obj.Init(Kill);
+            }
+            
+        }
+        else
+        {
+            var obj = usePool ? _pool.Get() : Instantiate(objPrefab);
+            obj.transform.position = (Vector2)transform.position + Random.insideUnitCircle * 8;
+            obj.Init(Kill);
+        }
         
     }
 

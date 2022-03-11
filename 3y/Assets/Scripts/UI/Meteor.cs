@@ -9,6 +9,8 @@ public class Meteor : MonoBehaviour
     private Rigidbody2D _rb; 
     protected Rigidbody2D rb => _rb;
     private Transform target;
+    private Action<Meteor> _kill;
+
     protected void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -24,12 +26,18 @@ public class Meteor : MonoBehaviour
 
     public void FixedUpdate()
     {
-        rb.velocity = target.position - transform.position;
+        rb.velocity = (target.position - transform.position) * Time.deltaTime * 10;
     }
 
+    public void Init(Action<Meteor> kill)
+    {
+        _kill = kill;
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Destroy(this.gameObject);
+        _kill(this);
     }
 
     
