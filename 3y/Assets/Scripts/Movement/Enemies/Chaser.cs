@@ -27,15 +27,8 @@ public class Chaser : MovementController
         isChasing = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
-
         _canJump = groundCheck.IsGrounded();
         if (isChasing)
         {
@@ -46,6 +39,7 @@ public class Chaser : MovementController
         LayerCheck();
 
         //Flip
+        
     }
 
     public override void Move(Vector2 direction)
@@ -73,7 +67,6 @@ public class Chaser : MovementController
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter");
         if (playerMask == (playerMask | 1 << other.gameObject.layer))
         {
             isChasing = true;
