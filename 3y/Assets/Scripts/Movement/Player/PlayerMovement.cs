@@ -16,6 +16,7 @@ public class PlayerMovement : MovementController
     private bool facingRight = true;
 
     public Animator animator;
+    public ParticleSystem dust;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -36,6 +37,7 @@ public class PlayerMovement : MovementController
         if (_canJump)
         {
             animator.SetBool("IsJumping", false);
+            
         }
 
         if (_isFalling && rb.velocity.y > 0)
@@ -60,6 +62,7 @@ public class PlayerMovement : MovementController
     public override void Move(Vector2 direction)
     {
         _direction = direction;
+        //MakeDust();
     }
 
     public override void Jump()
@@ -81,6 +84,10 @@ public class PlayerMovement : MovementController
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+        if (_canJump)
+        {
+            MakeDust();
+        }
     }
 
     public override void Sit()
@@ -91,5 +98,10 @@ public class PlayerMovement : MovementController
     public override void Attack()
     {
         throw new System.NotImplementedException();
+    }
+
+    private void MakeDust()
+    {
+        dust.Play();
     }
 }
