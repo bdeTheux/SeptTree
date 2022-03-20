@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: d52be8b4fb3cff34c99abd6f30601ce6
+guid: dba5ed68f0e3b6248ab77c6d4343dc92
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5964804713036057234
-    second: Meteor2_0
+      213: -9017943157800807368
+    second: Miel_0
   - first:
-      213: -437390170268772071
-    second: Meteor2_1
+      213: 7830347880000388008
+    second: Miel_1
+  - first:
+      213: -1477241841686697711
+    second: Miel_2
+  - first:
+      213: -3048239967091031140
+    second: Miel_3
+  - first:
+      213: 7083461866204324658
+    second: Miel_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -93,29 +102,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Meteor2_0
+      name: Miel_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,20 +120,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e65f8e467b1c83da0800000000000000
-      internalID: -5964804713036057234
+      spriteID: 8345e922a74d9d280800000000000000
+      internalID: -9017943157800807368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Meteor2_1
+      name: Miel_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,8 +141,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 919d1e025f31ee9f0800000000000000
-      internalID: -437390170268772071
+      spriteID: 8abf72fe8ebfaac60800000000000000
+      internalID: 7830347880000388008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Miel_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 119abea2f58cf7be0800000000000000
+      internalID: -1477241841686697711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Miel_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c93046376e972b5d0800000000000000
+      internalID: -3048239967091031140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Miel_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 233622b99038d4260800000000000000
+      internalID: 7083461866204324658
       vertices: []
       indices: 
       edges: []

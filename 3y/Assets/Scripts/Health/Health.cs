@@ -2,16 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private int initialHealth;
     [SerializeField] private int currentHealth;
-    
+    [SerializeField] private Slider slider;
+    private bool _isPlayer;
     //Init Health
     private void OnEnable()
     {
         currentHealth = initialHealth;
+        _isPlayer = slider != null;
     }
 
     //Take damage
@@ -23,7 +26,26 @@ public class Health : MonoBehaviour, IDamageable
         {
             Die();
         }
+
+        if (_isPlayer)
+        {
+            if (currentHealth < slider.minValue)
+            {
+                currentHealth = (int)slider.minValue;
+            }
+            slider.value = currentHealth;
+        }
     }
+
+    public void Heal(int health)
+    {
+        if ((currentHealth+health) > slider.maxValue)
+        {
+            currentHealth = (int)slider.maxValue;
+            slider.value = slider.maxValue;
+        }
+    }
+    
     //Die
     private void Die()
     {
