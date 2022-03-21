@@ -27,12 +27,17 @@ public class Chaser : MovementController
         isChasing = false;
     }
 
+    private void Update()
+    {
+        throw new NotImplementedException();
+    }
+
     private void FixedUpdate()
     {
         _canJump = groundCheck.IsGrounded();
         if (isChasing)
         {
-            dir =player.position - transform.position;
+            dir = player.position - transform.position;
             Move(dir);
         }
         //if ground jump || void
