@@ -26,6 +26,10 @@ public class MiniDinoBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (player == null)
+        {
+            _isFollowing = false;
+        }
         if (_isFollowing)
         {
             Run();
