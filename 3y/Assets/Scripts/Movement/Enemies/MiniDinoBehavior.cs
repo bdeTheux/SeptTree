@@ -16,9 +16,10 @@ public class MiniDinoBehavior : MonoBehaviour
     private bool _isPlayerSitting;
     [SerializeField] private LayerMask playerMask;
     private bool _isFollowing;
-    private Transform player;
+    private Rigidbody2D player;
     public Animator animator;
-
+    private bool _isIn = false;
+    private bool facingRight;
     private void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
@@ -32,6 +33,13 @@ public class MiniDinoBehavior : MonoBehaviour
         }
         if (_isFollowing)
         {
+            if (facingRight && player.position.x > transform.position.x)
+            {
+                Flip();
+            }else if (!facingRight && player.position.x < transform.position.x)
+            {
+                Flip();
+            }
             Run();
         }
     }
@@ -43,39 +51,75 @@ public class MiniDinoBehavior : MonoBehaviour
         {
             //Run away
             //tmp
-            dir = (player.position - transform.position);
+            dir = (player.transform.position - transform.position);
 
         }
         else
         {
             //Follow
-            dir = (player.position - transform.position);
-            dir.x += Random.Range(2, 5);
-            rb.MovePosition((Vector2)transform.position + (dir * Time.deltaTime));
+            if (player.velocity.x < 0.3f && _isIn)
+            {
+                dir = transform.position;
+            }
+            else
+            {
+                dir = (player.transform.position - transform.position);
+                //dir.x += Random.Range(2, 5);
+                rb.MovePosition((Vector2)transform.position + (dir * Time.deltaTime));
+            }
+
         }
         //Animation
-        var vel = rb.velocity;
-        vel.x = dir.x * speed;
-        animator.SetFloat("Speed", Mathf.Abs(vel.x));
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.normalized.x * speed));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (playerMask == (playerMask | 1 << other.gameObject.layer))
         {
-            if (cmpFollower == maxFollower)
-            {
-                Debug.Log("A Runner !");
-            }
-            else
-            {
-                if (!_isFollowing)
-                {
-                    cmpFollower++;
-                }
-                player = other.attachedRigidbody.transform;
-                _isFollowing = true; 
-            }
+            ChooseType(other);
+            
         }
+    }
+
+    private void ChooseType(Collider2D other)
+    {
+        if (cmpFollower == maxFollower)
+        {
+            Debug.Log("A Runner !");
+        }
+        else
+        {
+            if (!_isFollowing)
+            {
+                cmpFollower++;
+            }
+            player = other.attachedRigidbody;
+            _isFollowing = true; 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (playerMask == (playerMask | 1 << other.gameObject.layer))
+        {
+            _isIn = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (playerMask == (playerMask | 1 << other.gameObject.layer))
+        {
+            _isIn = false;
+        }
+    }
+    
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
