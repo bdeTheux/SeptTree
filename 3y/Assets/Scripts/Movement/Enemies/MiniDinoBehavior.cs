@@ -78,7 +78,6 @@ public class MiniDinoBehavior : MonoBehaviour
         if (playerMask == (playerMask | 1 << other.gameObject.layer))
         {
             ChooseType(other);
-            
         }
     }
 
