@@ -49,6 +49,10 @@ public class Health : MonoBehaviour, IDamageable
     //Die
     private void Die()
     {
+        if (!_isPlayer)
+        {
+            Destroy(transform.parent.gameObject);
+        }
         Debug.Log("Mort");
         //destroy with time
         Destroy(gameObject,0.6f);

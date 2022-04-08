@@ -9,8 +9,8 @@ using UnityEngine;
  */
 public class Chaser : MovementController
 {
-    private int speed = 4;
-    private int jumpPower = 5;
+    private int speed = 0;
+    private int jumpPower = 0;
     private bool isChasing;
     private bool _canMove;
 
