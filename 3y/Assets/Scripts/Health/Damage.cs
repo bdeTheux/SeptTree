@@ -8,6 +8,8 @@ public class Damage : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask weakMask;
+    private float godLikeTimer = 3f;
+    private bool godLike;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(gameObject.layer);
@@ -40,28 +42,44 @@ public class Damage : MonoBehaviour
     {
         Debug.Log("other" + other.gameObject.layer);
         Debug.Log("go" + gameObject.layer);
-
-        if (playerMask == (playerMask | 1 << other.gameObject.layer))
+        if (!godLike)
         {
-            Debug.Log("hit");
-            var body = other.rigidbody;
-            if (body)
+            if (playerMask == (playerMask | 1 << other.gameObject.layer))
             {
-                DealDamage(body.gameObject);
+                Debug.Log("hit");
+                var body = other.rigidbody;
+                if (body)
+                {
+                    DealDamage(body.gameObject);
+                }
+                else
+                {
+                    DealDamage(other.gameObject);
+                }
+                StartCoroutine(GodLike());
+
             }
-            else
-            {
-                DealDamage(other.gameObject);
-            }
+            
         }
+        
 
         
     }
 
     private void DealDamage(GameObject obj)
     {
-        var life = obj.GetComponent<IDamageable>();
-        life?.TakeDamage(damage);
-        
+       
+            Debug.Log("god" + godLike);
+            var life = obj.GetComponent<IDamageable>();
+            life?.TakeDamage(damage);
+
+
+    }
+
+    private IEnumerator GodLike()
+    {
+        godLike = true;
+        yield return new WaitForSeconds(godLikeTimer);
+        godLike = false;
     }
 }
