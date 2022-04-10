@@ -11,7 +11,7 @@ public class MiniDinoBehavior : MonoBehaviour
 {
     private Rigidbody2D rb;
     private int speed = 6;
-    [SerializeField] private int maxFollower = 4;
+    [SerializeField] private int maxFollower = 2;
     [SerializeField] private static int cmpFollower;
     private bool _isPlayerSitting;
     [SerializeField] private LayerMask playerMask;
@@ -20,8 +20,16 @@ public class MiniDinoBehavior : MonoBehaviour
     private Rigidbody2D player;
     public Animator animator;
     private bool _isIn = false;
-    private bool facingRight;
-    Animator playerAnimator;
+    private bool _facingRight;
+    Animator _playerAnimator;
+    //Jump
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform wallCheck;
+
+    [SerializeField] private float circleRadius;
+    [SerializeField] private LayerMask groundLayer;
+    private bool isGrounded;
+    private bool isWall;
 
     private void Start()
     {
@@ -36,16 +44,42 @@ public class MiniDinoBehavior : MonoBehaviour
         }
         if (_isFollowing || _isARunner)
         {
-            if (facingRight && player.position.x > transform.position.x)
+            if (!_isARunner)
             {
-                Flip();
-            }else if (!facingRight && player.position.x < transform.position.x)
-            {
-                Flip();
+                if (_facingRight && player.position.x > transform.position.x)
+                {
+                    Flip();
+                }else if (!_facingRight && player.position.x < transform.position.x)
+                {
+                    Flip();
+                }
+                Run();
             }
-            Run();
+            else
+            {
+                if (_facingRight && player.position.x < transform.position.x)
+                {
+                    Flip();
+                }else if (!_facingRight && player.position.x > transform.position.x)
+                {
+                    Flip();
+                }
+                Run();
+            }
+            
         }
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, circleRadius, groundLayer);
+        isWall = Physics2D.OverlapCircle(wallCheck.position, circleRadius, groundLayer);
         
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position, circleRadius);
+        Gizmos.DrawWireSphere(wallCheck.position, circleRadius);
+
     }
 
     private void Run()
@@ -59,20 +93,30 @@ public class MiniDinoBehavior : MonoBehaviour
             if (player.position.x >= transform.position.x)
             {
                 dir = (player.transform.position - transform.position);
-                transform.Translate( dir *Time.deltaTime);
-
             }
             else
             {
                 dir = (transform.position - player.transform.position);
-                transform.Translate( dir *Time.deltaTime);
             }
+            
+            if (isWall)
+            {
+                dir += Vector2.up* 6f;
+                transform.Translate(dir * Time.deltaTime);
+
+            }
+            else
+            {
+                transform.Translate( dir *Time.deltaTime);
+
+            }
+            
 
         }
         else
         {
             //animation ---
-            if (playerAnimator.GetBool("IsSitting"))
+            if (_playerAnimator.GetBool("IsSitting"))
             {
                 animator.SetBool("IsSitting", true);
             }
@@ -125,7 +169,7 @@ public class MiniDinoBehavior : MonoBehaviour
             {
                 cmpFollower++;
             }
-            playerAnimator = player.gameObject.GetComponent<Animator>();
+            _playerAnimator = player.gameObject.GetComponent<Animator>();
             _isFollowing = true; 
         }
     }
@@ -148,7 +192,7 @@ public class MiniDinoBehavior : MonoBehaviour
     
     private void Flip()
     {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
