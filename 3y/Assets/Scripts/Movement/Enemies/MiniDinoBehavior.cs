@@ -15,8 +15,8 @@ public class MiniDinoBehavior : MonoBehaviour
     [SerializeField] private static int cmpFollower;
     private bool _isPlayerSitting;
     [SerializeField] private LayerMask playerMask;
-    private bool _isFollowing;
-    private bool _isARunner;
+    [SerializeField] private bool _isFollowing;
+    [SerializeField] private bool _isARunner;
     private Rigidbody2D player;
     public Animator animator;
     private bool _isIn = false;
@@ -38,6 +38,7 @@ public class MiniDinoBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(_isFollowing);
         if (player == null)
         {
             _isFollowing = false;
@@ -57,6 +58,7 @@ public class MiniDinoBehavior : MonoBehaviour
             }
             else
             {
+                Debug.Log("NonNonNon");
                 if (_facingRight && player.position.x < transform.position.x)
                 {
                     Flip();
@@ -74,18 +76,10 @@ public class MiniDinoBehavior : MonoBehaviour
         
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(groundCheck.position, circleRadius);
-        Gizmos.DrawWireSphere(wallCheck.position, circleRadius);
-
-    }
-
     private void Run()
     {
         Vector2 dir;
-        if (cmpFollower == maxFollower && !_isFollowing)
+        if (cmpFollower > maxFollower && _isARunner)
         {
             //Run away
             //tmp
@@ -150,7 +144,10 @@ public class MiniDinoBehavior : MonoBehaviour
     {
         if (playerMask == (playerMask | 1 << other.gameObject.layer))
         {
-            ChooseType(other);
+            if (!_isFollowing && !_isARunner)
+            {
+                ChooseType(other);
+            }
         }
     }
 
@@ -158,7 +155,7 @@ public class MiniDinoBehavior : MonoBehaviour
     {
         //Get the player body
         player = other.attachedRigidbody;
-        if (cmpFollower == maxFollower)
+        if (cmpFollower > maxFollower)
         {
             Debug.Log("A Runner !");
             _isARunner = true;
@@ -197,4 +194,14 @@ public class MiniDinoBehavior : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
+    
+    
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position, circleRadius);
+        Gizmos.DrawWireSphere(wallCheck.position, circleRadius);
+
+    }
+
 }
