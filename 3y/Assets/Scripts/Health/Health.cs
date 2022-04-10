@@ -39,7 +39,6 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Heal(int health)
     {
-        Debug.Log("HEALLLL");
         if ((currentHealth+health) > slider.maxValue)
         {
             currentHealth = (int)slider.maxValue;

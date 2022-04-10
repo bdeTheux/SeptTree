@@ -16,10 +16,13 @@ public class MiniDinoBehavior : MonoBehaviour
     private bool _isPlayerSitting;
     [SerializeField] private LayerMask playerMask;
     private bool _isFollowing;
+    private bool _isARunner;
     private Rigidbody2D player;
     public Animator animator;
     private bool _isIn = false;
     private bool facingRight;
+    Animator playerAnimator;
+
     private void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
@@ -31,7 +34,7 @@ public class MiniDinoBehavior : MonoBehaviour
         {
             _isFollowing = false;
         }
-        if (_isFollowing)
+        if (_isFollowing || _isARunner)
         {
             if (facingRight && player.position.x > transform.position.x)
             {
@@ -42,20 +45,44 @@ public class MiniDinoBehavior : MonoBehaviour
             }
             Run();
         }
+        
     }
 
     private void Run()
     {
         Vector2 dir;
-        if (cmpFollower == maxFollower)
+        if (cmpFollower == maxFollower && !_isFollowing)
         {
             //Run away
             //tmp
-            dir = (player.transform.position - transform.position);
+            Debug.Log("RUNNNNN");
+            if (player.position.x >= transform.position.x)
+            {
+                dir = (player.transform.position - transform.position);
+                transform.Translate( dir *Time.deltaTime);
+
+            }
+            else
+            {
+                dir = (transform.position - player.transform.position);
+                transform.Translate( dir *Time.deltaTime);
+            }
 
         }
         else
         {
+            //animation ---
+            if (playerAnimator.GetBool("IsSitting"))
+            {
+                animator.SetBool("IsSitting", true);
+            }
+            else
+            {
+                animator.SetBool("IsSitting", false);
+            }
+            animator.SetBool("IsFollowing", true);
+            // -----
+            
             //Follow
             if (player.velocity.x < 0.3f && _isIn)
             {
@@ -65,7 +92,9 @@ public class MiniDinoBehavior : MonoBehaviour
             {
                 dir = (player.transform.position - transform.position);
                 //dir.x += Random.Range(2, 5);
-                rb.MovePosition((Vector2)transform.position + (dir * Time.deltaTime));
+                
+                //rb.MovePosition((Vector2)transform.position + (dir * Time.deltaTime));
+                transform.Translate(dir*Time.deltaTime);
             }
 
         }
@@ -83,9 +112,12 @@ public class MiniDinoBehavior : MonoBehaviour
 
     private void ChooseType(Collider2D other)
     {
+        //Get the player body
+        player = other.attachedRigidbody;
         if (cmpFollower == maxFollower)
         {
             Debug.Log("A Runner !");
+            _isARunner = true;
         }
         else
         {
@@ -93,7 +125,7 @@ public class MiniDinoBehavior : MonoBehaviour
             {
                 cmpFollower++;
             }
-            player = other.attachedRigidbody;
+            playerAnimator = player.gameObject.GetComponent<Animator>();
             _isFollowing = true; 
         }
     }

@@ -12,26 +12,19 @@ public class Damage : MonoBehaviour
     private bool godLike;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(gameObject.layer);
         if (weakMask == (weakMask | 1 << other.gameObject.layer))
         {
-            Debug.Log("Ici");
             DealDamage(other.gameObject);
-            Debug.Log("Go : " + gameObject + " ot = " + other.gameObject);
         }
         else
         {
             var body = other.attachedRigidbody;
             if (body)
             {
-                Debug.Log("la");
-
                 DealDamage(body.gameObject);
             }
             else
             {
-                Debug.Log("d");
-
                 DealDamage(other.gameObject);
             }
         }
@@ -40,8 +33,6 @@ public class Damage : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("other" + other.gameObject.layer);
-        Debug.Log("go" + gameObject.layer);
         if (!godLike)
         {
             if (playerMask == (playerMask | 1 << other.gameObject.layer))
@@ -62,18 +53,12 @@ public class Damage : MonoBehaviour
             
         }
         
-
-        
     }
 
     private void DealDamage(GameObject obj)
     {
-       
-            Debug.Log("god" + godLike);
-            var life = obj.GetComponent<IDamageable>();
-            life?.TakeDamage(damage);
-
-
+        var life = obj.GetComponent<IDamageable>();
+        life?.TakeDamage(damage);
     }
 
     private IEnumerator GodLike()
