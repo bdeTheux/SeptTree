@@ -129,10 +129,18 @@ public class MiniDinoBehavior : MonoBehaviour
             else
             {
                 dir = (player.transform.position - transform.position);
+                if (isWall && player.transform.position.y > transform.position.y)
+                {
+                    //dir += Vector2.up* 100f;
+                    
+                    rb.AddForce(new Vector2(0,0.5f),ForceMode2D.Impulse);
+                }
+                
                 //dir.x += Random.Range(2, 5);
                 
                 //rb.MovePosition((Vector2)transform.position + (dir * Time.deltaTime));
                 transform.Translate(dir*Time.deltaTime);
+                //rb.AddForce(dir*Time.deltaTime);
             }
 
         }
