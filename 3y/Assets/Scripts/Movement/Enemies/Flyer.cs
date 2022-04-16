@@ -8,11 +8,10 @@ public class Flyer : MonoBehaviour
 {
 
     private Vector3 spawnPoint;
-    [SerializeField] private float minRange;
-    [SerializeField] private float maxRange;
     [SerializeField] private float circleRadius;
     [SerializeField] private float speed;
     private Vector3 pos;
+    private bool _facingRight;
     private void Awake()
     {
         spawnPoint = transform.position;
@@ -33,8 +32,14 @@ public class Flyer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(spawnPoint);
         Move();
+        if (_facingRight && pos.x > 0)
+        {
+            Flip();
+        }else if (!_facingRight && pos.x < 0)
+        {
+            Flip();
+        }
     }
 
     private void Move()
@@ -48,8 +53,6 @@ public class Flyer : MonoBehaviour
     }
     private void GetRandomPos()
     {
-        minRange = spawnPoint.x - circleRadius;
-        maxRange = spawnPoint.x + circleRadius;
         //pos = new Vector3(Random.Range(-2, 2),Random.Range(-2, 2));
         pos = Random.insideUnitCircle * 2f;
         pos = pos.normalized;
@@ -59,5 +62,13 @@ public class Flyer : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(spawnPoint, circleRadius);
+    }
+    
+    private void Flip()
+    {
+        _facingRight = !_facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
