@@ -9,7 +9,7 @@ using UnityEngine;
  */
 public class Chaser : MovementController
 {
-    private int speed = 0;
+    private int speed = 2;
     private int jumpPower = 0;
     private bool isChasing;
     private bool _canMove;
@@ -20,7 +20,11 @@ public class Chaser : MovementController
     private Vector2 dir;
     [SerializeField] private BoxGroundCheck groundCheck;
     private bool _canJump;
+    private bool _facingRight = true;
 
+    private float timer = 0;
+
+    private bool isTurning = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,13 +41,19 @@ public class Chaser : MovementController
         if (isChasing)
         {
             dir = player.position - transform.position;
-            Move(dir);
+            if (timer == 0)
+            {
+                Move(dir);
+            }
+            if (_facingRight && player.position.x < transform.position.x)
+            {
+                Flip();
+            }else if (!_facingRight && player.position.x > transform.position.x)
+            {
+                Flip();
+            }
         }
-        //if ground jump || void
         LayerCheck();
-
-        //Flip
-        
     }
 
     public override void Move(Vector2 direction)
@@ -91,5 +101,21 @@ public class Chaser : MovementController
     public override void Attack()
     {
         throw new NotImplementedException();
+    }
+    
+    private void Flip()
+    {
+        if (timer < 1)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            _facingRight = !_facingRight;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+            timer = 0;
+        }
     }
 }
