@@ -19,11 +19,17 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
     
     [SerializeField] private MenuManager _menuManager;
     public MenuManager menuManager => _menuManager;
+    [SerializeField] private GameObject spawnMeteor;
     
     //SceneManager----------
     public void StartGame()
     {
         //Already a scene?
+        Destroy(spawnMeteor);
+        foreach (var meteor in GameObject.FindGameObjectsWithTag("Meteor"))
+        {
+            Destroy(meteor);
+        }
         StartCoroutine(levelManager.NextScene());
         menuManager.NextScene(levelManager.GetCurrentScene());
     }

@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] public GameObject Camera;
     [SerializeField] public GameObject MainMenuCamera;
-    
+
     public void CameraCreation()
     {
         Camera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour
         foreach (var cam in cameras)   
         {
             if (cam == Camera) continue;
+            
             if (Camera.tag.Equals("MainCamera")) Destroy(Camera);
             Camera = cam;
             DontDestroyOnLoad(cam);

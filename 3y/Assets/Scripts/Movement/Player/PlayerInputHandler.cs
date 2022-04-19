@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     [SerializeField] private MovementController controller;
+    [SerializeField] private GameManagerProxy proxy;
 
     // Update is called once per frame
     private void Update()
@@ -24,6 +25,11 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetButtonDown("Sit"))
         {
             controller.Sit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            proxy.MenuInGame();
         }
 
         

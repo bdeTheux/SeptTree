@@ -10,6 +10,8 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private int currentHealth;
     [SerializeField] private Slider slider;
     private bool _isPlayer;
+    [SerializeField] private GameManagerProxy proxy;
+    
     //Init Health
     private void OnEnable()
     {
@@ -57,6 +59,10 @@ public class Health : MonoBehaviour, IDamageable
         if (!_isPlayer)
         {
             Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            proxy.DieMenu();
         }
         Debug.Log("Mort");
         //destroy with time

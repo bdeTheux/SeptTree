@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
         //Disable all menus
         InGameManager.SetActive(!isOpen);
         MainMenu.SetActive(true);
-        CanvaCamera.SetActive(true);
+        //CanvaCamera.SetActive(true);
         isOpen = false;
         
         Debug.Log("isopen change");
@@ -52,7 +52,7 @@ public class MenuManager : MonoBehaviour
             Canva.SetActive(!isOpen);
             InGameManager.SetActive(!isOpen);
             isOpen = !isOpen;
-            CanvaCamera.SetActive(false);
+            //CanvaCamera.SetActive(false);
         }
     }
         
@@ -60,7 +60,7 @@ public class MenuManager : MonoBehaviour
     //Simply display ResumeMenu
     public void Resume()
     {
-        CanvaCamera.SetActive(true);
+        //CanvaCamera.SetActive(true);
         InGameManager.SetActive(!isOpen);
         //disable the canva
         Canva.SetActive(false);
