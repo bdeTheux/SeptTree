@@ -56,8 +56,7 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
         {
             playerManager.DestroyPlayer();
         }
-        if(cameraManager.GetCamera())
-            cameraManager.DestroyCamera();
+        
 
 
 //        Destroy(gameObject);
