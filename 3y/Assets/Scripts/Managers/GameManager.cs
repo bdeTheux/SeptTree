@@ -48,6 +48,8 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
     {
         //check if player is in life
         StartCoroutine(levelManager.NextScene());
+        AskACamera();
+        
     }
 
     public void MainMenu()
@@ -56,7 +58,14 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
         {
             playerManager.DestroyPlayer();
         }
-        
+        /*
+        if (cameraManager.GetCamera() && levelManager.GetCurrentScene() > 0)
+        {
+            Debug.Log(levelManager.GetCurrentScene());
+            cameraManager.DestroyCamera();
+
+        }
+        */
 
 
 //        Destroy(gameObject);

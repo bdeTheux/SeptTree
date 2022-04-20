@@ -7,6 +7,7 @@ TagManager:
   - Target
   - Prefab
   - Meteor
+  - Pcam
   layers:
   - Default
   - TransparentFX
