@@ -18,7 +18,7 @@ public class CameraManager : MonoBehaviour
     {
         var cameras = GameObject.FindGameObjectsWithTag("MainCamera");
         //We look in all the cameras and if you find another camera we delete the current camera
-        Destroy(Camera);
+        
         foreach (var cam in cameras)   
         {
             if (cam == Camera) continue;
