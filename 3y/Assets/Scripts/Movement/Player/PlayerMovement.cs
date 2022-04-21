@@ -104,14 +104,17 @@ public class PlayerMovement : MovementController
 
     public override void Shrimp()
     {
-        float scale = 2;
-        isShrink = !isShrink;
-        if (isShrink)
+        if (!groundCheck.IsRoofed())
         {
-             scale = 0.5f;
-        }
+            float scale = 2;
+            isShrink = !isShrink;
+            if (isShrink)
+            {
+                scale = 0.5f;
+            }
         
-        transform.root.localScale = new Vector3( transform.localScale.x*scale, transform.localScale.y * scale, 1);
+            transform.root.localScale = new Vector3( transform.localScale.x*scale, transform.localScale.y * scale, 1);
+        }
     }
 
     private void MakeDust()
