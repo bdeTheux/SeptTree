@@ -25,6 +25,7 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            slider.value = slider.minValue;
             Die();
         }
 

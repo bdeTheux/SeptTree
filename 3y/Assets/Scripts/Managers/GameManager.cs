@@ -32,6 +32,7 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
         }
         StartCoroutine(levelManager.NextScene());
         menuManager.NextScene(levelManager.GetCurrentScene());
+        playerManager.Setup();  
     }
     
     public void Quit()
@@ -108,6 +109,8 @@ public class GameManager : SingletonBehaviour<GameManager>, IGameManager
     {
         Debug.Log("ceci est le die menu");
         menuManager.DieMenu();
+        playerManager.DisableControl();
+        playerManager.DestroyPlayer();
     }
     
     //Resume

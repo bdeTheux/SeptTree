@@ -16,14 +16,14 @@ public class PlayerManager : MonoBehaviour
     {
         //Set Player spawnPoint
         playerMovement = Player.GetComponent<MovementController>();
-        HealthUi = Player.GetComponentInChildren<Canvas>().gameObject;
+        //HealthUi = Player.GetComponentInChildren<Canvas>().gameObject;
     }
 
     public void DisableControl()
     {
         playerMovement.enabled = false;
         //disable the ui
-        HealthUi.SetActive(false);
+        //HealthUi.SetActive(false);
     }
 
     public void EnableControl()
