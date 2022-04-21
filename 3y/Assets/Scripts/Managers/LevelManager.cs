@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,17 +12,17 @@ public class LevelManager : MonoBehaviour
     //Manage the switch of level(inc)
     public IEnumerator NextScene()
     {
-        Debug.Log(currentScene + " Scene count : " + SceneManager.sceneCount);
         //desactiver la scene courrant et activer la nouvel
         if (SceneManager.sceneCount > 1)
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         }
         currentScene++;
 
         //if (currentScene > 0) gameUi.SetActive(false);
-
+        
         yield return SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive);
+        yield return new WaitForSeconds(0.001f);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
     }
 
