@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive);
         yield return new WaitForSeconds(0.001f);
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(currentScene));
+        
     }
 
     public int GetCurrentScene()

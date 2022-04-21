@@ -8,6 +8,7 @@ TagManager:
   - Prefab
   - Meteor
   - Pcam
+  - Safe
   layers:
   - Default
   - TransparentFX

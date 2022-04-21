@@ -22,6 +22,7 @@ public class Health : MonoBehaviour, IDamageable
     //Take damage
     public void TakeDamage(int damage)
     {
+        if (gameObject == null) return;
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -61,7 +62,7 @@ public class Health : MonoBehaviour, IDamageable
         {
             Destroy(transform.parent.gameObject);
         }
-        else
+        if(_isPlayer)
         {
             proxy.DieMenu();
         }

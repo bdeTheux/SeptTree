@@ -41,7 +41,7 @@ public class Damage : MonoBehaviour
                 var body = other.rigidbody;
                 if (body)
                 {
-                    if(body.gameObject)
+                    if(body.gameObject && other.gameObject)
                         DealDamage(body.gameObject);
                 }
                 else

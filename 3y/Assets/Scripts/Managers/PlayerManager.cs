@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
 
     public void DisableControl()
     {
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
         //disable the ui
         //HealthUi.SetActive(false);
     }

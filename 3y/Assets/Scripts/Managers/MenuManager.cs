@@ -84,13 +84,13 @@ public class MenuManager : MonoBehaviour
             
             Canva.SetActive(true);
             DieMenuInGame.SetActive(true);
-            CanvaCamera.SetActive(false);
+            //CanvaCamera.SetActive(false);
         }
     }
     
     public void Restart()
     {
-        CanvaCamera.SetActive(true);
+        //CanvaCamera.SetActive(true);
         DieMenuInGame.SetActive(false);
         //disable the canva
         Canva.SetActive(false);

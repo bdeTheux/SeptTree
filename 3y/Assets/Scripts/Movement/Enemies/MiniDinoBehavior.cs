@@ -44,6 +44,7 @@ public class MiniDinoBehavior : MonoBehaviour
         }
         if (_isFollowing || _isARunner)
         {
+            if (player == null) return;
             if (!_isARunner)
             {
                 if (_facingRight && player.position.x > transform.position.x)
