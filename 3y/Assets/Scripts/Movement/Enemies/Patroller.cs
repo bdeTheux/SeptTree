@@ -76,6 +76,12 @@ public class Patroller : MovementController
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Shrimp()
+    {
+        throw new NotImplementedException();
+    }
+
     private void Flip()
     {
         facingRight = !facingRight;

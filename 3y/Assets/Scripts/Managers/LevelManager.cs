@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     //Manage the switch of level(inc)
     public IEnumerator NextScene()
     {
+        Debug.Log(currentScene + " Scene count : " + SceneManager.sceneCount);
         //desactiver la scene courrant et activer la nouvel
         if (SceneManager.sceneCount > 1)
         {

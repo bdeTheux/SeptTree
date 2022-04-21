@@ -28,6 +28,7 @@ public class Chaser : MovementController
     void Start()
     {
         isChasing = false;
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     private void FixedUpdate()
@@ -101,7 +102,12 @@ public class Chaser : MovementController
     {
         throw new NotImplementedException();
     }
-    
+
+    public override void Shrimp()
+    {
+        throw new NotImplementedException();
+    }
+
     private void Flip()
     {
         if (timer < 1)

@@ -25,7 +25,8 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            slider.value = slider.minValue;
+            if(_isPlayer)
+                slider.value = slider.minValue;
             Die();
         }
 
@@ -65,7 +66,7 @@ public class Health : MonoBehaviour, IDamageable
             proxy.DieMenu();
         }
         //destroy with time
-        Destroy(gameObject,0.6f);
+        //Destroy(gameObject,0.6f);
     }
     
 }

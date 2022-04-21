@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,19 @@ public class PlayerManager : MonoBehaviour
     private MovementController playerMovement;
     //the health ui?
     private GameObject HealthUi;
-    
+
+
+    public void Start()
+    {
+        
+    }
 
     public void Setup()
     {
         //Set Player spawnPoint
-        playerMovement = Player.GetComponent<MovementController>();
+        PlayerCreation();
+        if(Player)
+            playerMovement = Player.GetComponent<PlayerMovement>();
         //HealthUi = Player.GetComponentInChildren<Canvas>().gameObject;
     }
 
@@ -47,7 +55,8 @@ public class PlayerManager : MonoBehaviour
     public void PlayerCreation()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        DontDestroyOnLoad(Player);
+        if(Player)
+            DontDestroyOnLoad(Player);
     }
 
     //Soit param soit find

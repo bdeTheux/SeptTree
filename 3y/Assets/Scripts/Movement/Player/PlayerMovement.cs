@@ -17,6 +17,8 @@ public class PlayerMovement : MovementController
 
     public Animator animator;
     public ParticleSystem dust;
+
+    private bool isShrink = false;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -98,6 +100,18 @@ public class PlayerMovement : MovementController
     public override void Attack()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override void Shrimp()
+    {
+        float scale = 2;
+        isShrink = !isShrink;
+        if (isShrink)
+        {
+             scale = 0.5f;
+        }
+        
+        transform.root.localScale = new Vector3( transform.localScale.x*scale, transform.localScale.y * scale, 1);
     }
 
     private void MakeDust()

@@ -38,7 +38,6 @@ public class MiniDinoBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_isFollowing);
         if (player == null)
         {
             _isFollowing = false;
@@ -58,7 +57,6 @@ public class MiniDinoBehavior : MonoBehaviour
             }
             else
             {
-                Debug.Log("NonNonNon");
                 if (_facingRight && player.position.x < transform.position.x)
                 {
                     Flip();
@@ -83,7 +81,6 @@ public class MiniDinoBehavior : MonoBehaviour
         {
             //Run away
             //tmp
-            Debug.Log("RUNNNNN");
             if (player.position.x >= transform.position.x)
             {
                 dir = (player.transform.position - transform.position);

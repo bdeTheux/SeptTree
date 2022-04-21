@@ -32,6 +32,12 @@ public class PlayerInputHandler : MonoBehaviour
             proxy.MenuInGame();
         }
 
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            //shrink
+            controller.Shrimp();
+        }
+
         
     }
 }
