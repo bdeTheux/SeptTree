@@ -12,6 +12,7 @@ public class EndPoint : MonoBehaviour
     {
         if (playerLayer == (playerLayer | 1 << other.gameObject.layer))
         {
+            Destroy(GameObject.FindWithTag("Musique"));
             proxy.NextLevel();
         }
     }

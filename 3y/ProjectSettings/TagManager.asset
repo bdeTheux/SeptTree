@@ -9,6 +9,7 @@ TagManager:
   - Meteor
   - Pcam
   - Safe
+  - Musique
   layers:
   - Default
   - TransparentFX
